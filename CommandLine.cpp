@@ -1,32 +1,26 @@
-#include "CommandLine.h"
-#include "Table.h"
-
 #include <vector>
 #include <sstream>
 #include <iterator>
 #include <algorithm>
 #include <string>
+#include "Table.h"
 
-CommandLine::CommandLine()
+
+#include "CommandLine.h"
+#include "DB.h"
+
+using namespace std;
+
+CommandLine::CommandLine(DB& dbIn)
 {
-
+    this->db=&dbIn;
 }
 
 CommandLine::~CommandLine()
 {
-
+    //nie usuwac dbIn! - DB najpierw usunie commandLine a pozniej siebie
 }
 
-void CommandLine::setValues(std::string m_givenname_i,std::string m_familyname_i)
-{
-    m_givenname=m_givenname_i;
-    m_familyname=m_familyname_i;
-}
-
-std::string CommandLine::getGivenname()
-{
-    return m_givenname;
-}
 
 //spliting a string line into vector elements
 vector<string> CommandLine::split(const string &s, char delim) {
@@ -39,17 +33,30 @@ vector<string> CommandLine::split(const string &s, char delim) {
     return tokens;
 }
 
-//creating a new table
+/*
+creating a new table
+SYNTAX: CREATE TABLE TABLENAME TYPE1 COLUMNNAME1 TYPE2 COLUMNNAME2 ...
+*/
 CommandLine::createTable(vector<string> &objects){
 //testowanie czy komenda została dobrze przekazana do funkcji
-
 int l=objects.size();
-for (int k = 0; k < l; k++) {
-cout << objects[k] + "<= createtable function scope" << endl;
+//omit CREATE TABLE
+int k = 2;
+//TABLENAME
+cout << objects[k] + " <= name "<< endl;
+//create the table with the given name, take pointer to it
+Table* table = this->db->createTable(objects[k]);
+k=k+1;
+
+for (k; k < l; k=k+2) {
+//TYPE
+cout << objects[k] + " <= type "<< endl;
+//COLUMNNAME
+cout << objects[k+1] + " <= value " << endl;
+string typeColumn = objects[k];
+string nameColumn = objects[k+1];
+this->db->addColumnHandle(table,typeColumn,nameColumn);
 }
-
-
-
 
 }
 
@@ -85,37 +92,20 @@ void CommandLine::parseCommand(){
         if (objects[1].compare("table")== 0){
             cout << "create table" << endl;
             //go to function responsible for creating a new table
-            createTable(objects);
+            this->createTable(objects);
         }
-
+    }
+    else if (objects[0].compare("tables") == 0){
+        cout << " Listing all tables" << endl;
+        this->db->printTableNames();
     }
     else {
-        cout << "wrong command, please use select, insert, delete or create" << endl;
+        cout << "wrong command, please use tables, select, insert, delete or create" << endl;
     }
 
-
-
-
-
-/*
-	// print every part of the command separately
-    int l=objects.size();
-    for (int k = 0; k < l; k++) {
-
-    	if (objects[k].compare("select") == 0) {
-    		cout << " action to select word" << endl;
-    		//jeżeli jest select to trzeba oczekiwać wybierania wierszy z bazy danych
-    		//po selekcie nastepne oczekiwane lista słów to kolumny
-		}
-
-		else if (objects[k].compare("from")== 0){
-			cout << " action to from word" << endl;
-		}
-
-
-        //cout << objects[k] + "<= react to this part of command" << endl;
-    }
-    //now every element of vector will determine another action
-	*/
+    cin.clear();
+    cout << "Done" << endl;
 
 }
+
+
