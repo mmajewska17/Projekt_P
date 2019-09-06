@@ -14,19 +14,24 @@ class DB;
 //std przestrzen nazw std::
 using namespace std;
 
-//friend class of DB
+
+/// Command Line Interface Class
+/// @ db - a handle to DB
+///
 class CommandLine
 {
 private:
-    vector<string> split(const string &s, char delim); // function for splitting a line
+	//a function for splitting a command into elements of vector
+	//and assigning reaction corresponding to that command
+    vector<string> split(const string &s, char delim); 
     createTable(vector<string> &objects);
     DB* db;
 public:
     CommandLine(DB& dbIn);    //Constructor prototype
     ~CommandLine();   //Destructor prototype
     void parseCommand();
-
+    
 
 
 };
-#endif
+#endif 

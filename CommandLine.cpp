@@ -13,12 +13,12 @@ using namespace std;
 
 CommandLine::CommandLine(DB& dbIn)
 {
-    this->db=&dbIn;
+	this->db=&dbIn;
 }
 
 CommandLine::~CommandLine()
 {
-    //nie usuwac dbIn! - DB najpierw usunie commandLine a pozniej siebie
+	//nie usuwac dbIn! - DB najpierw usunie commandLine a pozniej siebie
 }
 
 
@@ -38,25 +38,25 @@ creating a new table
 SYNTAX: CREATE TABLE TABLENAME TYPE1 COLUMNNAME1 TYPE2 COLUMNNAME2 ...
 */
 CommandLine::createTable(vector<string> &objects){
-//testowanie czy komenda zosta≈Ça dobrze przekazana do funkcji
-int l=objects.size();
-//omit CREATE TABLE
-int k = 2;
-//TABLENAME
-cout << objects[k] + " <= name "<< endl;
-//create the table with the given name, take pointer to it
-Table* table = this->db->createTable(objects[k]);
-k=k+1;
+	//testowanie czy komenda zosta≥a dobrze przekazana do funkcji
+	int l=objects.size();
+	//omit CREATE TABLE
+	int k = 2;
+	//TABLENAME
+	cout << objects[k] + " <= name "<< endl;
+	//create the table with the given name, take pointer to it
+	Table* table = this->db->createTable(objects[k]);
+	k=k+1;
 
-for (k; k < l; k=k+2) {
-//TYPE
-cout << objects[k] + " <= type "<< endl;
-//COLUMNNAME
-cout << objects[k+1] + " <= value " << endl;
-string typeColumn = objects[k];
-string nameColumn = objects[k+1];
-this->db->addColumnHandle(table,typeColumn,nameColumn);
-}
+	for (k; k < l; k=k+2) {
+		//TYPE
+		cout << objects[k] + " <= type "<< endl;
+		//COLUMNNAME
+		cout << objects[k+1] + " <= value " << endl;
+		string typeColumn = objects[k];
+		string nameColumn = objects[k+1];
+		this->db->addColumnHandle(table,typeColumn,nameColumn);
+	}
 
 }
 
@@ -77,8 +77,8 @@ void CommandLine::parseCommand(){
     // select name,surname from users
     if (objects[0].compare("select") == 0) {
         cout << " action to select" << endl;
-        //je≈ºeli jest select to trzeba oczekiwaƒá wybierania wierszy z bazy danych
-        //po selekcie nastepne oczekiwane lista s≈Ç√≥w to kolumny
+        //jeøeli jest select to trzeba oczekiwaÊ wybierania wierszy z bazy danych
+        //po selekcie nastepne oczekiwane lista s≥Ûw to kolumny
     }
     else if (objects[0].compare("insert")== 0){
         cout << " action to insert word" << endl;
@@ -103,8 +103,8 @@ void CommandLine::parseCommand(){
         cout << "wrong command, please use tables, select, insert, delete or create" << endl;
     }
 
-    cin.clear();
-    cout << "Done" << endl;
+	cin.clear();
+	cout << "Done" << endl;
 
 }
 
