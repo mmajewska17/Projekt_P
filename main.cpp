@@ -5,7 +5,7 @@
 
 #include "CommandLine.h"
 #include "DB.h"
-
+#include "templatesDB.h"
 
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
@@ -30,12 +30,68 @@ int main(int argc, char** argv) {
 
     DB *db = new DB();
 
-    while(1) {
-        db->runCommandLine();
-    }
+//testing the library from a user defined code
+//create table
+    string tableName="USERS";
+    Table *tableUsers = db->createTable(tableName);
 
-    db->runCommandLine();
+    string tableName2="EMPLOYERS";
+    Table *tableEmployers = db->createTable(tableName2);
 
+//add column to table
+    string column_1_name = "Name";
+    string column_2_age = "Age";
+    string column_3_generic = "An generic object";
+
+    int sizeAr=5;
+
+    addColumn<string>(tableUsers, "string", column_1_name);
+    addColumn<int>(tableUsers, "integer", column_2_age);
+
+
+//generic - any type
+    addColumn<char>(tableUsers, "generic", column_3_generic);
+
+//nastepny przyklad generic - tym razem struktura
+    string column_4_structure = "Structure";
+    struct Structure {
+        int field_1;
+        string field_2;
+        char field_3;
+    };
+    addColumn<Structure>(tableUsers, "generic", column_4_structure);
+
+//printing information about tables and columns of the db
+    db->printTableNames();
+
+//add all these elements above into the table as a record
+    string name = "Adam Malysz";
+    int age = 35;
+    char sex = 'M';
+    struct Structure exampleStructure;
+    exampleStructure.field_1 = 60;
+    exampleStructure.field_2 = "bla";
+    exampleStructure.field_3 = 'a';
+
+//addRec(int index, tableT& tab, First& arg, const Params&... rest )
+//Zly dostep do tablicy tableUsers
+    addRec(0,tableUsers,name,age,sex);
+
+
+
+/*
+string table = "TABLE_POINTER";
+char t = {'t'};
+int elev = 11;
+string abec = "abecadlo";
+int tw = 12;
+addRec(0,table,t,elev,abec,tw);
+*/
+
+//testing the CLI provided with the library
+//while(1) {
+//db->runCommandLine();
+//}
 
 /*
 //size of array for each column

@@ -13,9 +13,44 @@ class CommandLine;
 
 using namespace std;
 
+/*
+* Recursive way of processing a generic number of arguments of different type
+* passed into a template.
+* https://stackoverflow.com/a/9040913
+* This technique is called variadic templates - can be used only with C++11 or above.
+*
+* Assumption! - no index management has been implemented. New data is always written to 0 index.
+*
+*/
+//last execution of the recursive function
+template<typename tableT, typename Last>
+void addRec(int cnt, tableT* tab, Last& arg){
+    //tab->
+
+    std::cout<<arg<<" "<<cnt<<std::endl;
+    //std::cout<<tab->name<<std::endl;
+    std::cout<<"the record has been added"<<std::endl;
+
+}
+//
+template<typename tableT, typename First, typename ... Params >
+void addRec(int cnt, tableT* tab, First& arg, const Params&... rest ) {
+
+
+    std::cout<<arg<<" "<<cnt<<std::endl;
+    //std::cout<<tab->name<<std::endl;
+    cnt=cnt+1;
+    addRec(cnt,tab, rest...);
+}
 
 
 
+
+
+/*
+* This class manages the container consisting of many tables.
+*
+*/
 class DB
 {
 private:
@@ -26,18 +61,8 @@ public:
     DB();
     ~DB();
     void runCommandLine();
-    /*for(;;){
-    //input command and print after throwing to vector
-        cout << "Input command: ";
-        commandLine->parseCommand();
-
-        cout << "Enter another command:";
-        if (getchar() == 'w')
-        {
-            break;
-        }
-    }*/
     Table* createTable(string& name);
+    void printTableNames();
     /*
     * The specialisation of the template below allows user to add any type to a table.
     * The handle is used for CLI(Command Line Interface) to supervise what an user adds
@@ -46,8 +71,10 @@ public:
     */
     //a handle for CLI
     void addColumnHandle(Table* table, string type, string name);
-    void addRecord();
-    void printTableNames();
+
+    //template<typename Last>void addRec(Last arg);
+    //template<typename First, typename ... Params> void addRec(First arg, const Params&... rest);
+
 
 
 };

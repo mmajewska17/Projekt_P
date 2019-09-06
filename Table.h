@@ -5,10 +5,11 @@
 #include "Column.h"
 #include <memory>
 
+
+
 class Table
 {
 private:
-    std::string name;
     //Vector of pointers to Column. Need to handle destruction.
     std::vector<ColumnBase*> vectorOfCols;
     //https://stackoverflow.com/a/12009572
@@ -20,6 +21,7 @@ protected:
     //size = amount of elements in each column
     //int arraySize=0;
 public:
+    std::string name;
     Table();
     ~Table();
     Table(const std::string & name);
@@ -32,7 +34,10 @@ public:
     //automatic management/ partitioning
     int arraySize=5;
     //	~Person();
+    //bool to return ture if the record has been added or false otherwise
+    bool addRecordToTable(std::vector<string>& vectorOfData);
 
 };
+
 
 

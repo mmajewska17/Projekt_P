@@ -56,4 +56,21 @@ void Table::setSize() {
     std::cout<< "setSize"<<endl;
 }
 
+//input - vector of strings
+//aim - cast and add to columns
+bool addRecordToTable(std::vector<string>& vectorOfData){
+    //go through all the columns and assing data
+    //for(std::vector<string>::iterator it = vectorOfData.begin(); it != vectorOfData.end(); ++it) {
+    //std::cout << *it < endl;
+    //}
+
+
+    //std::vector<ColumnBase*> vectorOfCols
+
+};
+
+//template <class T>
+//bool addCellToColumn(T& vectorOfData,){
+//};
+
 

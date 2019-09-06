@@ -79,7 +79,7 @@ public:
 
     //show data
     void show_data() const{
-        std::cout<<data[0]<<std::endl;
+        //std::cout<<data[0]<<std::endl;
     };
 
     //set data
