@@ -6,7 +6,7 @@ Kolekcjoner [MS]
 Opracowanie bazy danych (w³asny silnik) s³u¿¹cej do przechowywania informacji o
 swobodnie definiowanych obiektach, które posiadamy w domu (ksi¹¿ki, p³yty CD i DVD,
 kolekcja figurek porcelanowych, itp.) w postaci biblioteki (np. jak SQLLite). System ma
-umo¿liwiæ definiowanie ró¿nych typów przedmiotów (opisywanych przez kilka atrybutów 
+umo¿liwiæ definiowanie ró¿nych typów przedmiotów (opisywanych przez kilka atrybutów
 standardowych oraz szereg swobodnie konfigurowalnych) a nastêpnie przechowywaæ
 informacje o poszczególnych egzemplarzach. Dla poszczególnych przedmiotów
 zdefiniowanych mo¿e byæ kilka stanów, których siê one znajduj¹ (mam, po¿yczone,
@@ -31,7 +31,7 @@ using namespace std;
 CLI - Possible commands:
 
 1. list all tables:
-	tables 
+	tables
 2. create table:
 	create table name typecolumn namecolumn typecolumn2 namecolumn2 ...
 
@@ -39,61 +39,64 @@ CLI - Possible commands:
 
 int main(int argc, char** argv) {
 // create a new instance of DB
-DB *db = new DB();
+    DB *db = new DB();
 
 //testing the library from a user defined code
 //create table
-string tableName="USERS";
-Table *tableUsers = db->createTable(tableName);
+    string tableName="USERS";
+    Table *tableUsers = db->createTable(tableName);
 
-string tableName2="EMPLOYERS";
-Table *tableEmployers = db->createTable(tableName2);
+    string tableName2="EMPLOYERS";
+    Table *tableEmployers = db->createTable(tableName2);
 
 //add column to table
-string column_1_name = "Name";
-string column_2_age = "Age";
-string column_3_generic = "An generic object";
+    string column_1_name = "Name";
+    string column_2_age = "Age";
+    string column_3_generic = "An generic object";
 
-int sizeAr=5;
+    int sizeAr=5;
 
-addColumn<string>(tableUsers, "string", column_1_name);
-addColumn<int>(tableUsers, "integer", column_2_age);
+    addColumn<string>(tableUsers, "string", column_1_name);
+    addColumn<int>(tableUsers, "integer", column_2_age);
 
 
 //generic - any type
-addColumn<char>(tableUsers, "generic", column_3_generic);
+    addColumn<char>(tableUsers, "generic", column_3_generic);
 
 //nastepny przyklad generic - tym razem struktura, dodaje kolumne do tabeli Users
-string column_4_structure = "Structure";
-struct Structure {
-   int field_1;
-   string field_2;
-   char field_3;
- };
-addColumn<Structure>(tableUsers, "generic", column_4_structure);
+    string column_4_structure = "Structure";
+    struct Structure {
+        int field_1;
+        string field_2;
+        char field_3;
+    };
+    addColumn<Structure>(tableUsers, "generic", column_4_structure);
 
 //printing information about tables and columns of the db
-db->printTableNames();
+    db->printTableNames();
 
 //add all these elements above into the table as a record
-string name = "Adam Malysz";
-int age = 35;
-char sex = 'M';
-struct Structure exampleStructure;
-exampleStructure.field_1 = 60;
-exampleStructure.field_2 = "bla";
-exampleStructure.field_3 = 'a';
+    string name = "Adam Malysz";
+    int age = 35;
+    char sex = 'M';
+    struct Structure exampleStructure;
+    exampleStructure.field_1 = 60;
+    exampleStructure.field_2 = "bla";
+    exampleStructure.field_3 = 'a';
 
 //addRec(int index, tableT& tab, First& arg, const Params&... rest )
 //addRec(0,tableUsers,name,age,sex,exampleStructure);
-addRec(0,tableUsers,name,age,sex);
+    addRec(0,tableUsers,name,age,sex);
 
 //cout << typeid(*tableUsers).name() << endl;
 
 //testing the CLI provided with the library
-while(1) {
-db->runCommandLine();
-}
+//while(1) {
+    db->runCommandLine();
+//}
+    db->printTableNames();
+
+
 
 /*
 //size of array for each column
@@ -145,9 +148,9 @@ cout<<	 static_cast<Column<char>*>(charInstance)->data[1]		<<endl;
 
 //destruct table, columns and data
 delete table1;
-	
+
 */
-	return 0;
+    return 0;
 }
 
 

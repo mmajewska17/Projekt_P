@@ -78,16 +78,17 @@ void DB::printTableNames(){
 	
 	while (it != mapOfTables->end())
 	{
-		// Accessing KEY from element pointed by it.
-		std::string word = it->first;
-		// Accessing VALUE from element pointed by it.
-		int tableSize = it->second->arraySize;
-		std::cout << word  <<" : "<< tableSize <<std::endl;
-		//printing column names
-		it->second->printCols();
-		
-		// Increment the Iterator to point to next entry
-		it++;
+        // Accessing KEY from element pointed by it.
+        std::string word = it->first;
+        std::cout << word  <<std::endl;
+        // Accessing VALUE from element pointed by it.
+        //int tableSize = it->second->arraySize;
+        //std::cout << word  <<" : "<< tableSize <<std::endl;
+        //printing column names
+        //it->second->printCols();
+
+        // Increment the Iterator to point to next entry
+        it++;
 	}
 
 
